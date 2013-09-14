@@ -60,14 +60,18 @@ void ofxBulletBaseShape::remove() {
         }
     }
     
+    removeShape();
+	removeRigidBody();
+}
+
+//--------------------------------------------------------------
+void ofxBulletBaseShape::removeShape() {
     if(_bColShapeCreatedInternally) {
         if(_shape) {
             delete _shape;
             _shape = NULL;
         }
     }
-    
-	removeRigidBody();
 }
 
 //--------------------------------------------------------------
@@ -388,13 +392,13 @@ void ofxBulletBaseShape::applyTorque( const btVector3& a_torque ) {
 void ofxBulletBaseShape::transformGL() {
     btScalar	m[16];
     ofGetOpenGLMatrixFromRigidBody( getRigidBody(), m );
-    glPushMatrix();
-    glMultMatrixf( m );
+    ofPushMatrix();
+    ofMultMatrix( ofMatrix4x4(m) );
 }
 
 //--------------------------------------------------------------
 void ofxBulletBaseShape::restoreTramsformGL() {
-    glPopMatrix();
+    ofPopMatrix();
 }
 
 

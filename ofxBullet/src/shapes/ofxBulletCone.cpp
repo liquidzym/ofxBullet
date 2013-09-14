@@ -56,6 +56,16 @@ void ofxBulletCone::create( btDiscreteDynamicsWorld* a_world, btTransform const&
 }
 
 //--------------------------------------------------------------
+void ofxBulletCone::removeShape() {
+    if(_bColShapeCreatedInternally) {
+        if(_shape) {
+            delete (btConeShape *)_shape;
+            _shape = NULL;
+        }
+    }
+}
+
+//--------------------------------------------------------------
 float ofxBulletCone::getHeight() {
 	return (float)((btConeShape*)_rigidBody->getCollisionShape())->getHeight();
 }
@@ -77,10 +87,10 @@ void ofxBulletCone::draw() {
 		return;
 	}
 	transformGL();
-    glPushMatrix();
-    glRotatef(180, 1, 0, 0);
+    ofPushMatrix();
+    ofRotate(180, 1, 0, 0);
     ofDrawCone( 0, 0, 0, getRadius(), getHeight() );
-    glPopMatrix();
+    ofPopMatrix();
     restoreTramsformGL();
 }
 

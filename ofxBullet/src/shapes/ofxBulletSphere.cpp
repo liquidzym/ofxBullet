@@ -56,6 +56,16 @@ void ofxBulletSphere::create( btDiscreteDynamicsWorld* a_world, btTransform cons
 }
 
 //--------------------------------------------------------------
+void ofxBulletSphere::removeShape() {
+    if(_bColShapeCreatedInternally) {
+        if(_shape) {
+            delete (btSphereShape *)_shape;
+            _shape = NULL;
+        }
+    }
+}
+
+//--------------------------------------------------------------
 void ofxBulletSphere::draw() {
 	if(!_bCreated || _rigidBody == NULL) {
 		ofLog(OF_LOG_WARNING, "ofxBulletSphere :: draw : must call create() first and add() after");

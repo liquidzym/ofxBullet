@@ -56,6 +56,16 @@ void ofxBulletCylinder::create( btDiscreteDynamicsWorld* a_world, btTransform co
 }
 
 //--------------------------------------------------------------
+void ofxBulletCylinder::removeShape() {
+    if(_bColShapeCreatedInternally) {
+        if(_shape) {
+            delete (btCylinderShape *)_shape;
+            _shape = NULL;
+        }
+    }
+}
+
+//--------------------------------------------------------------
 float ofxBulletCylinder::getRadius() {
 	return ((btCylinderShape*)_rigidBody->getCollisionShape())->getRadius();
 }
@@ -72,8 +82,8 @@ void ofxBulletCylinder::draw() {
 		ofLog(OF_LOG_WARNING, "ofxBulletCylinder :: draw : must call create() first and add() after");
 		return;
 	}
-	int upAxis			= ((btCylinderShape*)_rigidBody->getCollisionShape())->getUpAxis();
-	float halfHeight	= ((btCylinderShape*)_rigidBody->getCollisionShape())->getHalfExtentsWithMargin()[upAxis];
+	//int upAxis			= ((btCylinderShape*)_rigidBody->getCollisionShape())->getUpAxis();
+	//float halfHeight	= ((btCylinderShape*)_rigidBody->getCollisionShape())->getHalfExtentsWithMargin()[upAxis];
 	
 	transformGL();
     ofDrawCylinder( 0, 0, 0, getRadius(), getHeight() );
